@@ -1,10 +1,10 @@
 <template>
   <div id="card">
-    <img class="image_recipe" src="../assets/logo.png">
+    <div class="image_recipe"><img src="../assets/logo.png"></div>
     <div class="text_recipe">
         <h1>{{title_recipe }}</h1>
-        <div class="recipe"><p>{{recipe}}</p></div>
         <Ingredients />
+        <div class="recipe"><p>{{recipe}}</p></div>
     </div>
   </div>
 </template>
@@ -26,17 +26,32 @@ export default {
 
 <style scoped>
 h1{
-    color:#ff5719;
+    color:#eb1414;
     text-align: start;
 }
 #card{
     display: flex;
-    background-color: rgb(255, 233, 224);
+    background-color: rgb(255, 224, 224);
     margin:3%;
+    border:solid;
+    border-width: 0 0 0 2px;
+    border-color: #eb1414;
+    align-items: center;
+}
+
+.text_recipe{
+    margin:2%;
+    width: fit-content;
+    height:auto;
 }
 
 .image_recipe{
     margin:1%;
+    width: 80%;
+}
+
+.image_recipe > img{
+  width: 80%;
 }
 
 </style>

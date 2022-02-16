@@ -22,9 +22,8 @@ export default {
 <style scoped>
 
 #ingredients{
-    background-color: rgb(231, 175, 158);
+    background-color: rgb(231, 158, 158);
     padding:2%;
-    width: 50%;
 }
 
 </style>
