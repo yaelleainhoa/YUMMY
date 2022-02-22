@@ -3,7 +3,6 @@
       <Ingredient ingredient="Eggs" quantity="7"/>
       <Ingredient ingredient="Sugar" quantity="600 g"/>
       <Ingredient ingredient="Salt" quantity="7 g"/>
-
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div id="card">
-    <div class="image_recipe"><img src="../assets/logo.png"></div>
+    <div class="image_recipe"><img v-bind:src="picture_url"></div>
     <div class="text_recipe">
         <h1>{{title_recipe }}</h1>
         <Ingredients />
@@ -16,7 +16,9 @@ export default {
   name: 'RecipeCard',
   props: {
     title_recipe: String,
-    recipe: String
+    recipe: String,
+    picture_url:{type: String, default:require ("../assets/logo.png")}
+
   },
   components: {
       Ingredients
