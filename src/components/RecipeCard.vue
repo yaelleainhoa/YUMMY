@@ -3,8 +3,12 @@
     <div class="image_recipe"><img v-bind:src="picture_url"></div>
     <div class="text_recipe">
         <h1>{{title_recipe }}</h1>
-        <Ingredients />
-        <div class="recipe"><p>{{recipe}}</p></div>
+        <Ingredients v-bind:idMeal = "id"/>
+        <div class="recipe">
+          <div v-for="recipe_line in recipe" v-bind:key="recipe_line.id"><p>{{recipe_line}}</p>
+          </div>
+        </div>
+        <p>{{id}}</p>
     </div>
   </div>
 </template>
@@ -15,10 +19,10 @@ import Ingredients from "./Ingredients.vue"
 export default {
   name: 'RecipeCard',
   props: {
-    title_recipe: String,
-    recipe: String,
-    picture_url:{type: String, default:require ("../assets/logo.png")}
-
+    title_recipe: {type: String, default : "No title"},
+    recipe: {type: Array},
+    picture_url:{type: String, default:require ("../assets/logo.png")},
+    id:{}
   },
   components: {
       Ingredients
@@ -28,7 +32,7 @@ export default {
 
 <style scoped>
 h1{
-    color:#eb1414;
+    color:#f86565;
     text-align: start;
 }
 #card{
@@ -37,7 +41,7 @@ h1{
     margin:3%;
     border:solid;
     border-width: 0 0 0 2px;
-    border-color: #eb1414;
+    border-color: #e98484;
     align-items: center;
 }
 

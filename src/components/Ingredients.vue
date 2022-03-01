@@ -1,27 +1,44 @@
 <template>
   <div id="ingredients">
-      <Ingredient ingredient="Eggs" quantity="7"/>
-      <Ingredient ingredient="Sugar" quantity="600 g"/>
-      <Ingredient ingredient="Salt" quantity="7 g"/>
+    <div v-for="ingredient in this.ingredientsData" :key="ingredient.id">
+      <Ingredient :ingredient="ingredient.name" :quantity="ingredient.measure"/>
+    </div>
   </div>
 </template>
 
 <script>
 
 import Ingredient from './Ingredient.vue'
+import {getIngredientsDataById} from '../services/api/mealAPI.js'
 
 export default {
   name: 'Ingredients',
+  props: {
+    idMeal:{}
+  },
   components: {
     Ingredient
-  }
+      },
+   data() {
+    return {
+      ingredientsData: []
+          }
+  },
+  created: function(){
+    this.retrieveIngredientsData();
+  },
+	methods: {
+			async retrieveIngredientsData() {
+					this.ingredientsData = await getIngredientsDataById(52933);
+			}
+}
 }
 </script>
 
 <style scoped>
 
 #ingredients{
-    background-color: rgb(231, 158, 158);
+    background-color: rgb(243, 187, 187);
     padding:2%;
 }
 
