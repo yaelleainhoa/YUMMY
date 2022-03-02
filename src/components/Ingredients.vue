@@ -1,5 +1,5 @@
 <template>
-  <div id="ingredients" :style="cssProps">
+  <div id="ingredients">
     <div v-for="ingredient in this.ingredientsData" :key="ingredient.id">
       <Ingredient :ingredient="ingredient.name" :quantity="ingredient.measure"/>
     </div>
@@ -25,13 +25,6 @@ export default {
       ingredientNumber: null
           }
   },
-  computed: {
-    cssProps() {
-      return {
-          // width:this.ingredientNumber/2*50 + "px"
-      }
-    }
-  },
   created: function(){
     this.retrieveIngredientsData();
   },
@@ -50,9 +43,12 @@ export default {
     background-color: rgb(243, 187, 187);
     padding:5%;
     width: 80%;
-    /* peut etre faire un tableau plutot ? */
-    /* display: flex;
-    flex-wrap:wrap; */
+    display: flex;
+    flex-wrap:wrap;
+}
+
+#ingredients > div{
+  width: 50%;
 }
 
 </style>
