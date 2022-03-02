@@ -8,7 +8,6 @@
           <div v-for="recipe_line in recipe" v-bind:key="recipe_line.id"><p>{{recipe_line}}</p>
           </div>
         </div>
-        <p>{{id}}</p>
     </div>
   </div>
 </template>
@@ -37,11 +36,11 @@ h1{
 }
 #card{
     display: flex;
-    background-color: rgb(255, 224, 224);
+    background-color: rgb(255, 255, 255);
     margin:3%;
     border:solid;
     border-width: 0 0 0 2px;
-    border-color: #e98484;
+    border-color: #ffb2b2;
     align-items: center;
 }
 
@@ -57,7 +56,7 @@ h1{
 }
 
 .image_recipe > img{
-  width: 80%;
+  width: 90%;
 }
 
 </style>

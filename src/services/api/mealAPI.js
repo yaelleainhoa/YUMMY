@@ -12,6 +12,19 @@ const getMealsDataByName =
   }
 }
 
+const getMealsDataById =
+    async function(mealId) {
+  const pathMeal = '  www.themealdb.com/api/json/v1/1/lookup.php?i=' + mealId
+  const response = await fetch(pathMeal)
+  if (response.status == 200) {
+    const data = await response.json()
+    return data
+  }
+  else {
+    new Error(response.statusText)
+  }
+}
+
 const getIngredientsDataById =
     async function(mealId) {
   const pathMeal =
@@ -21,8 +34,9 @@ const getIngredientsDataById =
     const data = await response.json()
     let ingredients = [];
     for (let i = 1; i < 21 && data.meals[0]['strMeasure' + i]; i++) {
-      console.log('BON : ', data.meals[0]['strMeasure' + i])
       let ingredientName = data.meals[0]['strIngredient' + i];
+      ingredientName =
+          ingredientName.charAt(0).toUpperCase() + ingredientName.slice(1);
       let ingredientMesure = data.meals[0]['strMeasure' + i];
       let ingredient = {'name': ingredientName, 'measure': ingredientMesure};
       ingredients.push(ingredient)
@@ -35,5 +49,5 @@ const getIngredientsDataById =
 }
 
 export {
-  getIngredientsDataById, getMealsDataByName
+  getIngredientsDataById, getMealsDataByName, getMealsDataById
 }

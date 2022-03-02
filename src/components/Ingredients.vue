@@ -1,5 +1,5 @@
 <template>
-  <div id="ingredients">
+  <div id="ingredients" :style="cssProps">
     <div v-for="ingredient in this.ingredientsData" :key="ingredient.id">
       <Ingredient :ingredient="ingredient.name" :quantity="ingredient.measure"/>
     </div>
@@ -21,15 +21,24 @@ export default {
       },
    data() {
     return {
-      ingredientsData: []
+      ingredientsData: [],
+      ingredientNumber: null
           }
+  },
+  computed: {
+    cssProps() {
+      return {
+          // width:this.ingredientNumber/2*50 + "px"
+      }
+    }
   },
   created: function(){
     this.retrieveIngredientsData();
   },
 	methods: {
 			async retrieveIngredientsData() {
-					this.ingredientsData = await getIngredientsDataById(52933);
+					this.ingredientsData = await getIngredientsDataById(this.idMeal);
+          this.ingredientNumber = this.ingredientsData.length;
 			}
 }
 }
@@ -39,7 +48,11 @@ export default {
 
 #ingredients{
     background-color: rgb(243, 187, 187);
-    padding:2%;
+    padding:5%;
+    width: 80%;
+    /* peut etre faire un tableau plutot ? */
+    /* display: flex;
+    flex-wrap:wrap; */
 }
 
 </style>
