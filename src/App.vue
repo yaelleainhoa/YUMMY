@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header/>align-items: center
+    <Header/>
     <div class="page">
       <div class="first_column">
         <div v-for="meal in this.mealsData.meals.slice(0,this.mealsData.meals.length/2+1)" :key="meal.id">
@@ -50,6 +50,7 @@ body{
   background-color: rgb(255, 255, 255);
   margin:0px;
   width: 100vw;
+  box-sizing: border-box;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -57,13 +58,18 @@ body{
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   background-color: rgb(243, 213, 211);
-  margin-top: 30px;
+}
+
+#app:first-child{
+  align-items: center
 }
 
 .page{
   margin-top: 5vw;
   display: flex;
   flex-wrap: wrap;
+  width: 100vw;
+  margin-top: 60px;
 }
 
 .page > div{

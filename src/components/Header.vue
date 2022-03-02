@@ -40,8 +40,7 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
-  transform: translateY(-30px); 
+  height: 60px;
   width: 100%;
 }
 

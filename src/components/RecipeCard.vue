@@ -34,6 +34,7 @@ h1{
     color:#f86565;
     text-align: start;
 }
+
 #card{
     display: flex;
     flex-direction: column;
@@ -50,15 +51,19 @@ h1{
     width: fit-content;
     height:auto;
     padding:5%;
+    font-size: 0.9em;
 }
 
 .image_recipe{
     margin:1%;
-    width: 30%;
+    width: 100%;
+    height:200px;
+    overflow: hidden;
 }
 
 .image_recipe > img{
-  width: 90%;
+   object-fit: cover; 
+  object-position: center -50px;
 }
 
 </style>
