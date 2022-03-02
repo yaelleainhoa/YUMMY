@@ -2,8 +2,16 @@
   <div id="app">
     <Header/>align-items: center
     <div class="page">
-      <div v-for="meal in this.mealsData.meals" :key="meal.id">
-        <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" :recipe="meal.strInstructions.split('\n')" :id="meal.idMeal" />
+      <div class="first_column">
+        <div v-for="meal in this.mealsData.meals.slice(0,this.mealsData.meals.length/2+1)" :key="meal.id">
+          <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" :recipe="meal.strInstructions.split('\n')" :id="meal.idMeal" />
+        </div>
+      </div>
+
+      <div class="second_column">
+        <div v-for="meal in this.mealsData.meals.slice(this.mealsData.meals.length/2)" :key="meal.id">
+          <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" :recipe="meal.strInstructions.split('\n')" :id="meal.idMeal" />
+        </div>
       </div>
     </div>
   </div>
@@ -22,7 +30,7 @@ export default {
     },
   data() {
     return {
-      mealsData: []
+      mealsData: [],
     }
   },
   created: function(){
@@ -39,7 +47,7 @@ export default {
 <style>
 
 body{
-  background-color: antiquewhite;
+  background-color: rgb(255, 255, 255);
   margin:0px;
   width: 100vw;
 }
@@ -48,11 +56,18 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  background-color: rgb(243, 213, 211);
   margin-top: 30px;
 }
 
 .page{
   margin-top: 5vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.page > div{
+  width: 50%;
 }
 
 img{

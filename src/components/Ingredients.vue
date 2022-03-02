@@ -41,7 +41,8 @@ export default {
 
 #ingredients{
     background-color: rgb(243, 187, 187);
-    padding:5%;
+    margin:5%;
+    padding: 5%;
     width: 80%;
     display: flex;
     flex-wrap:wrap;

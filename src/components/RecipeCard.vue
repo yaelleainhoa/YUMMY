@@ -36,6 +36,7 @@ h1{
 }
 #card{
     display: flex;
+    flex-direction: column;
     background-color: rgb(255, 255, 255);
     margin:3%;
     border:solid;
@@ -48,11 +49,12 @@ h1{
     margin:2%;
     width: fit-content;
     height:auto;
+    padding:5%;
 }
 
 .image_recipe{
     margin:1%;
-    width: 80%;
+    width: 30%;
 }
 
 .image_recipe > img{
