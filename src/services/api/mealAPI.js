@@ -15,7 +15,8 @@ const getMealsDataByName =
 
 const getMealsDataById =
     async function(mealId) {
-  const pathMeal = '  www.themealdb.com/api/json/v1/1/lookup.php?i=' + mealId
+  const pathMeal =
+      'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + mealId
   const response = await fetch(pathMeal)
   if (response.status == 200) {
     const data = await response.json()

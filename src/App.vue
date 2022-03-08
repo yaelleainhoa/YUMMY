@@ -2,8 +2,8 @@
   <div id="app">
     <Header/>      
     <div class="mainRecipe" v-show="isVisible == true">
-        <RecipePage :title_recipe="this.mealsData.meals[0].strMeal" :picture_url="this.mealsData.meals[0].strMealThumb" 
-        :recipe="this.mealsData.meals[0].strInstructions.split('\n')" :id="this.mealsData.meals[0].idMeal"/>
+        <RecipePage :title_recipe="this.mainMealData.meals[0].strMeal" :picture_url="this.mainMealData.meals[0].strMealThumb" 
+        :recipe="this.mainMealData.meals[0].strInstructions.split('\n')" :id="this.mainMealData.meals[0].idMeal"/>
     </div>
 
     <div class="page" v-show="isVisible != true">
@@ -49,8 +49,9 @@ export default {
     this.updateMainMeal();
     this.retrieveMealsData("chicken");
   },
-  updated: function(){
+  beforeUpdate: function(){
     this.updateMainMeal();
+    console.log("updated");
   },
 	methods: {
     async retrieveMealsData(mealName) {
@@ -59,8 +60,6 @@ export default {
 
     async updateMainMeal(){
       this.mainMealData=await getMealsDataById(this.idMeal);
-            console.log("TEST",this.mainMealData);
-
     },
 
     seeMainRecipe: function(id){
