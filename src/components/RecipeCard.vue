@@ -4,7 +4,7 @@
     <div class="text_recipe">
       <h1>{{title_recipe }}</h1>
       <Ingredients v-bind:idMeal = "id"/>
-      <button class="seeRecipe">Click to see the recipe</button>
+      <button class="seeRecipe"  v-on:click="udpate()">Click to see the recipe</button>
     </div>
   </div>
 </template>
@@ -21,6 +21,12 @@ export default {
   },
   components: {
       Ingredients
+  },
+  methods: {
+    udpate: function () {
+      this.$emit("updateVisibility", this.id)
+      console.log(this.id)
+    }
   }
 }
 </script>
@@ -60,6 +66,7 @@ h1{
   border: none;
   /* border-radius: 20%; */
   color: white;
+  cursor:pointer;
 }
 
 .image_recipe{

@@ -10,14 +10,14 @@
       <div class="first_column">
         <div v-for="meal in this.mealsData.meals.slice(0,this.mealsData.meals.length/2+1)" :key="meal.id">
           <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" 
-          :id="meal.idMeal" />
+          :id="meal.idMeal" v-on:updateVisibility="seeMainRecipe"/>
         </div>
       </div>
 
       <div class="second_column">
         <div v-for="meal in this.mealsData.meals.slice(this.mealsData.meals.length/2)" :key="meal.id">
           <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" 
-        :id="meal.idMeal" />
+        :id="meal.idMeal" v-on:updateVisibility="seeMainRecipe"/>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
 import RecipeCard from './components/RecipeCard.vue'
 import RecipePage from './components/RecipePage.vue'
 import Header from './components/Header.vue'
-import {getMealsDataByName} from "@/services/api/mealAPI.js"
+import {getMealsDataByName, getMealsDataById} from "@/services/api/mealAPI.js"
 
 export default {
   name: 'App',
@@ -42,20 +42,32 @@ export default {
       mealsData: [],
       isVisible:false,
       idMeal:52772,
+      mainMealData:[],
     }
   },
   created: function(){
+    this.updateMainMeal();
     this.retrieveMealsData("chicken");
+  },
+  updated: function(){
+    this.updateMainMeal();
   },
 	methods: {
     async retrieveMealsData(mealName) {
         this.mealsData = await getMealsDataByName(mealName);
     },
 
-    showSingleRecipe(idMeal){
-      this.idMeal = idMeal;
+    async updateMainMeal(){
+      this.mainMealData=await getMealsDataById(this.idMeal);
+            console.log("TEST",this.mainMealData);
+
+    },
+
+    seeMainRecipe: function(id){
+      this.idMeal = id;
       this.isVisible=true;
-    }
+      console.log(id);
+    },
 
 	}
 }
