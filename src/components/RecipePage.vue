@@ -2,9 +2,12 @@
   <div id="card">
     <div class="image_recipe"><img v-bind:src="picture_url"></div>
     <div class="text_recipe">
-      <h1>{{title_recipe }}</h1>
-      <Ingredients v-bind:idMeal = "id"/>
-      <button class="seeRecipe">Click to see the recipe</button>
+        <h1>{{title_recipe }}</h1>
+        <Ingredients v-bind:idMeal = "id"/>
+        <div class="recipe">
+          <div v-for="recipe_line in recipe" v-bind:key="recipe_line.id"><p>{{recipe_line}}</p>
+          </div>
+        </div>
     </div>
   </div>
 </template>
@@ -16,6 +19,7 @@ export default {
   name: 'RecipeCard',
   props: {
     title_recipe: {type: String, default : "No title"},
+    recipe: {type: Array},
     picture_url:{type: String, default:require ("../assets/logo.png")},
     id:{}
   },
@@ -30,15 +34,14 @@ h1{
     color:#f86565;
     text-align: start;
 }
-
 #card{
     display: flex;
     flex-direction: column;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(255, 224, 224);
     margin:3%;
     border:solid;
     border-width: 0 0 0 2px;
-    border-color: #ffb2b2;
+    border-color: #e98484;
     align-items: center;
 }
 
@@ -46,32 +49,15 @@ h1{
     margin:2%;
     width: fit-content;
     height:auto;
-    padding:5%;
-    font-size: 0.9em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.seeRecipe{
-  width: 30%;
-  padding:2%;
-  background-color: #f86565;
-  border: none;
-  /* border-radius: 20%; */
-  color: white;
 }
 
 .image_recipe{
     margin:1%;
-    width: 100%;
-    height:200px;
-    overflow: hidden;
+    width: 50%;
 }
 
 .image_recipe > img{
-   object-fit: cover; 
-  object-position: center -50px;
+  width: 80%;
 }
 
 </style>

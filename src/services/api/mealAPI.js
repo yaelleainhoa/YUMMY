@@ -5,6 +5,7 @@ const getMealsDataByName =
   const response = await fetch(pathMeal)
   if (response.status == 200) {
     const data = await response.json()
+    console.log(data)
     return data
   }
   else {
@@ -41,6 +42,7 @@ const getIngredientsDataById =
       let ingredient = {'name': ingredientName, 'measure': ingredientMesure};
       ingredients.push(ingredient)
     }
+
     return ingredients
   }
   else {
