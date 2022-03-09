@@ -9,19 +9,19 @@
       <label for="site-search">Search a recipe : </label>
       <input type="search" id="site-search" name="q"
         aria-label="Search through site content">
-      <button>Search</button>
-    </div>
+    <!-- </div>
 
 
-    <div class="select by_area">
+    <div class="select by_area"> -->
       <select class="selectArea"> 
           <option value="neutral">--Area--</option>
           <option value="canadian">Canadian</option>
           <option value="chinese">Chinese</option>
           <option value="french">French</option>
       </select>
-      <button>Select</button>
     </div>
+
+    <button>Search</button>
   </div>
 </template>
 

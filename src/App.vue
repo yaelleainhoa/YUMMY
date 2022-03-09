@@ -1,21 +1,22 @@
 <template>
   <div id="app">
     <Header/>      
-    <div class="mainRecipe" v-show="isVisible == true">
-        <RecipePage :title_recipe="this.mainMealData.meals[0].strMeal" :picture_url="this.mainMealData.meals[0].strMealThumb" 
-        :recipe="this.mainMealData.meals[0].strInstructions.split('\n')" :id="this.mainMealData.meals[0].idMeal"/>
+    <div class="mainRecipe" v-if="isVisible == true">
+        <RecipePage :title_recipe="this.mainMealData[0].strMeal" :picture_url="this.mainMealData[0].strMealThumb" 
+        :recipe="this.mainMealData[0].strInstructions.split('\n')" :id="this.mainMealData[0].idMeal" 
+        v-on:hideMainRecipe="seeRecipes"/>
     </div>
 
-    <div class="page" v-show="isVisible != true">
+    <div class="page" v-else>
       <div class="first_column">
-        <div v-for="meal in this.mealsData.meals.slice(0,this.mealsData.meals.length/2+1)" :key="meal.id">
+        <div v-for="meal in this.mealsData.slice(0,(this.mealsData.length+1)/2)" :key="meal.id">
           <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" 
           :id="meal.idMeal" v-on:updateVisibility="seeMainRecipe"/>
         </div>
       </div>
 
       <div class="second_column">
-        <div v-for="meal in this.mealsData.meals.slice(this.mealsData.meals.length/2)" :key="meal.id">
+        <div v-for="meal in this.mealsData.slice((this.mealsData.length+1)/2)" :key="meal.id">
           <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" 
         :id="meal.idMeal" v-on:updateVisibility="seeMainRecipe"/>
         </div>
@@ -46,16 +47,19 @@ export default {
     }
   },
   created: function(){
-    this.updateMainMeal();
+    this.retrieveMainMealData();
     this.retrieveMealsData("chicken");
   },
   beforeUpdate: function(){
     this.updateMainMeal();
-    console.log("updated");
   },
 	methods: {
     async retrieveMealsData(mealName) {
         this.mealsData = await getMealsDataByName(mealName);
+    },
+
+    async retrieveMainMealData(){
+      this.mainMealData=await getMealsDataById(this.idMeal);
     },
 
     async updateMainMeal(){
@@ -67,6 +71,10 @@ export default {
       this.isVisible=true;
       console.log(id);
     },
+
+    seeRecipes: function(){
+      this.isVisible=false;
+    }
 
 	}
 }
@@ -108,5 +116,14 @@ img{
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+button{
+  width: 15%;
+  padding:1%;
+  background-color: #f86565;
+  border: none;
+  color: white;
+  cursor:pointer;
 }
 </style>

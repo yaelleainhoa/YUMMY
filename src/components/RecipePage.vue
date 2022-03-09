@@ -1,8 +1,9 @@
 <template>
   <div id="card">
+    <button class="seeRecipes"  v-on:click="udpate()">Click to go back</button>
+    <h1>{{title_recipe }}</h1>
     <div class="image_recipe"><img v-bind:src="picture_url"></div>
     <div class="text_recipe">
-        <h1>{{title_recipe }}</h1>
         <Ingredients v-bind:idMeal = "id"/>
         <div class="recipe">
           <div v-for="recipe_line in recipe" v-bind:key="recipe_line.id"><p>{{recipe_line}}</p>
@@ -25,6 +26,11 @@ export default {
   },
   components: {
       Ingredients
+  },
+  methods: {
+    udpate: function () {
+      this.$emit("hideMainRecipe")
+    }
   }
 }
 </script>
@@ -37,12 +43,16 @@ h1{
 #card{
     display: flex;
     flex-direction: column;
-    background-color: rgb(255, 224, 224);
+    background-color: rgb(255, 255, 255);
     margin:3%;
     border:solid;
     border-width: 0 0 0 2px;
     border-color: #e98484;
     align-items: center;
+}
+
+.seeRecipes{
+  margin:2%;
 }
 
 .text_recipe{

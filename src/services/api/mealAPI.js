@@ -6,7 +6,7 @@ const getMealsDataByName =
   if (response.status == 200) {
     const data = await response.json()
     console.log(data)
-    return data
+    return data.meals
   }
   else {
     new Error(response.statusText)
@@ -20,7 +20,7 @@ const getMealsDataById =
   const response = await fetch(pathMeal)
   if (response.status == 200) {
     const data = await response.json()
-    return data
+    return data.meals
   }
   else {
     new Error(response.statusText)

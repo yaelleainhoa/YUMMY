@@ -25,7 +25,6 @@ export default {
   methods: {
     udpate: function () {
       this.$emit("updateVisibility", this.id)
-      console.log(this.id)
     }
   }
 }
@@ -62,11 +61,6 @@ h1{
 .seeRecipe{
   width: 30%;
   padding:2%;
-  background-color: #f86565;
-  border: none;
-  /* border-radius: 20%; */
-  color: white;
-  cursor:pointer;
 }
 
 .image_recipe{
