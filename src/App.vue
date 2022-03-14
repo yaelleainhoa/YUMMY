@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Header/>      
-    <div class="mainRecipe" v-if="isVisible == true">
-        <RecipePage :title_recipe="this.mainMealData[0].strMeal" :picture_url="this.mainMealData[0].strMealThumb" 
-        :recipe="this.mainMealData[0].strInstructions.split('\n')" :id="this.mainMealData[0].idMeal" 
+    <div class="mainRecipe" v-if="idMeal != null">
+        <RecipePage :title_recipe="mainMeal.strMeal" :picture_url="mainMeal.strMealThumb" 
+        :recipe="mainMeal.strInstructions.split('\n')" :id="mainMeal.idMeal" 
         v-on:hideMainRecipe="seeRecipes"/>
     </div>
 
@@ -29,7 +29,7 @@
 import RecipeCard from './components/RecipeCard.vue'
 import RecipePage from './components/RecipePage.vue'
 import Header from './components/Header.vue'
-import {getMealsDataByName, getMealsDataById} from "@/services/api/mealAPI.js"
+import {getMealsDataByName} from "@/services/api/mealAPI.js"
 
 export default {
   name: 'App',
@@ -42,38 +42,30 @@ export default {
     return {
       mealsData: [],
       isVisible:false,
-      idMeal:52772,
+      idMeal:null,
       mainMealData:[],
     }
   },
   created: function(){
-    this.retrieveMainMealData();
     this.retrieveMealsData("chicken");
   },
-  beforeUpdate: function(){
-    this.updateMainMeal();
+  computed: {
+    mainMeal: function(){
+      let meal = this.mealsData.find(element => element.idMeal == this.idMeal);
+      return meal;
+    }
   },
 	methods: {
     async retrieveMealsData(mealName) {
         this.mealsData = await getMealsDataByName(mealName);
     },
 
-    async retrieveMainMealData(){
-      this.mainMealData=await getMealsDataById(this.idMeal);
-    },
-
-    async updateMainMeal(){
-      this.mainMealData=await getMealsDataById(this.idMeal);
-    },
-
     seeMainRecipe: function(id){
       this.idMeal = id;
-      this.isVisible=true;
-      console.log(id);
     },
 
     seeRecipes: function(){
-      this.isVisible=false;
+      this.idMeal = null;
     }
 
 	}

@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     udpate: function () {
+      window.scroll(0,0);
       this.$emit("updateVisibility", this.id)
     }
   }
