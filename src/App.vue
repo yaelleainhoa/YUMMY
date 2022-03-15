@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header/>      
+    <Header v-on:searchRecipe="seeSearchedRecipes"/>      
     <div class="mainRecipe" v-if="idMeal != null">
         <RecipePage :title_recipe="mainMeal.strMeal" :picture_url="mainMeal.strMealThumb" 
         :recipe="mainMeal.strInstructions.split('\n')" :id="mainMeal.idMeal" 
@@ -9,14 +9,14 @@
 
     <div class="page" v-else>
       <div class="first_column">
-        <div v-for="meal in this.mealsData.slice(0,(this.mealsData.length+1)/2)" :key="meal.id">
+        <div v-for="meal in mealsDataSelected.slice(0,(mealsDataSelected.length+1)/2)" :key="meal.id">
           <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" 
           :id="meal.idMeal" v-on:updateVisibility="seeMainRecipe"/>
         </div>
       </div>
 
       <div class="second_column">
-        <div v-for="meal in this.mealsData.slice((this.mealsData.length+1)/2)" :key="meal.id">
+        <div v-for="meal in mealsDataSelected.slice((mealsDataSelected.length+1)/2)" :key="meal.id">
           <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" 
         :id="meal.idMeal" v-on:updateVisibility="seeMainRecipe"/>
         </div>
@@ -29,7 +29,7 @@
 import RecipeCard from './components/RecipeCard.vue'
 import RecipePage from './components/RecipePage.vue'
 import Header from './components/Header.vue'
-import {getMealsDataByName} from "@/services/api/mealAPI.js"
+import {getMealsDataByName, getMealsLaunchWebsite} from "@/services/api/mealAPI.js"
 
 export default {
   name: 'App',
@@ -44,20 +44,30 @@ export default {
       isVisible:false,
       idMeal:null,
       mainMealData:[],
+      nameRecipes:""
     }
   },
   created: function(){
-    this.retrieveMealsData("chicken");
+    this.lauchWebsite();
+    // this.retrieveMealsData(this.nameRecipes);
   },
   computed: {
     mainMeal: function(){
       let meal = this.mealsData.find(element => element.idMeal == this.idMeal);
       return meal;
+    },
+    mealsDataSelected: function(){
+      // this.retrieveMealsData(this.nameRecipes);
+      return this.mealsData;
     }
   },
 	methods: {
     async retrieveMealsData(mealName) {
         this.mealsData = await getMealsDataByName(mealName);
+    },
+
+    async lauchWebsite(){
+      this.mealsData = await getMealsLaunchWebsite();
     },
 
     seeMainRecipe: function(id){
@@ -66,7 +76,12 @@ export default {
 
     seeRecipes: function(){
       this.idMeal = null;
-    }
+    },
+
+    seeSearchedRecipes: function(name){
+      this.nameRecipes = name;
+      this.retrieveMealsData(this.nameRecipes);
+    },
 
 	}
 }
@@ -111,11 +126,12 @@ img{
 }
 
 button{
-  width: 15%;
+  width: fit-content;
   padding:1%;
   background-color: #f86565;
   border: none;
   color: white;
   cursor:pointer;
+  margin:1%;
 }
 </style>

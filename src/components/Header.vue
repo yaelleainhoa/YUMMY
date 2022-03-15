@@ -5,23 +5,14 @@
       <img src="@/assets/logo.png">
     </div>
 
-     <div class="search">
-      <label for="site-search">Search a recipe : </label>
-      <input type="search" id="site-search" name="q"
-        aria-label="Search through site content">
-    <!-- </div>
-
-
-    <div class="select by_area"> -->
-      <select class="selectArea"> 
-          <option value="neutral">--Area--</option>
-          <option value="canadian">Canadian</option>
-          <option value="chinese">Chinese</option>
-          <option value="french">French</option>
-      </select>
+    <div class="search-area">
+      <input type="search" class="input" v-model="search" placeholder="Search a Recipe">
+      <button v-on:click="sendForm()">Search</button>
+      <div :class="search?'show':''" @click="cleanSearch" class="remove">
+        <img src="@/assets/remove.png">
+      </div>
     </div>
 
-    <button>Search</button>
   </div>
 </template>
 
@@ -29,6 +20,20 @@
 
 export default {
   name: 'Header',
+  data(){
+    return{
+      search:""
+    }
+  },
+  methods: {
+    sendForm: function () {
+      window.scroll(0,0);
+      this.$emit("searchRecipe", this.search)
+    },
+    cleanSearch: function(){
+      this.search=""
+    }
+  }
 }
 </script>
 
@@ -38,18 +43,55 @@ export default {
   background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  /* align-items: center; */
+  /* justify-content: space-between; */
   height: 60px;
   width: 100%;
 }
 
-.header > * {
-    margin:10px;
+.logo{
+  position: absolute;
 }
 
 .logo > img{
-    width:60px;
+  width:60px;
+}
+
+.remove{
+  width: 8%;
+  height: 8%;
+  cursor:pointer;
+  opacity: 0;
+}
+
+.input{
+  height: 90%;
+}
+
+.show{
+  opacity: 1;
+}
+
+.remove > img{
+  width: 100%;
+}
+
+/* button{
+  padding:2%;
+} */
+
+/* .search{
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+} */
+
+.search-area{
+  display: flex;
+  width: 25%;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
 }
 
 </style>

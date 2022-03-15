@@ -5,7 +5,19 @@ const getMealsDataByName =
   const response = await fetch(pathMeal)
   if (response.status == 200) {
     const data = await response.json()
-    console.log(data)
+    return data.meals
+  }
+  else {
+    new Error(response.statusText)
+  }
+}
+
+const getMealsLaunchWebsite =
+    async function() {
+  const pathMeal = ' https://www.themealdb.com/api/json/v1/1/search.php?f=a&f=b'
+  const response = await fetch(pathMeal)
+  if (response.status == 200) {
+    const data = await response.json()
     return data.meals
   }
   else {
@@ -52,5 +64,5 @@ const getIngredientsDataById =
 }
 
 export {
-  getIngredientsDataById, getMealsDataByName
+  getIngredientsDataById, getMealsDataByName, getMealsLaunchWebsite
 }
