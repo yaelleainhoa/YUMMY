@@ -94,6 +94,7 @@ body{
   margin:0px;
   width: 100vw;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -101,6 +102,7 @@ body{
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   background-color: rgb(243, 213, 211);
+  margin-left: 0.5%;
 }
 
 #app:first-child{
@@ -133,5 +135,6 @@ button{
   color: white;
   cursor:pointer;
   margin:1%;
+  border-radius: 50px;
 }
 </style>

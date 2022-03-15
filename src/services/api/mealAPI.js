@@ -14,7 +14,7 @@ const getMealsDataByName =
 
 const getMealsLaunchWebsite =
     async function() {
-  const pathMeal = ' https://www.themealdb.com/api/json/v1/1/search.php?f=a&f=b'
+  const pathMeal = ' https://www.themealdb.com/api/json/v1/1/search.php?f=c'
   const response = await fetch(pathMeal)
   if (response.status == 200) {
     const data = await response.json()
@@ -47,7 +47,9 @@ const getIngredientsDataById =
   if (response.status == 200) {
     const data = await response.json()
     let ingredients = [];
-    for (let i = 1; i < 21 && data.meals[0]['strMeasure' + i]; i++) {
+    for (let i = 1; i < 21 && data.meals[0]['strMeasure' + i] &&
+         data.meals[0]['strIngredient' + i];
+         i++) {
       let ingredientName = data.meals[0]['strIngredient' + i];
       ingredientName =
           ingredientName.charAt(0).toUpperCase() + ingredientName.slice(1);

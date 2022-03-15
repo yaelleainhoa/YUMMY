@@ -56,7 +56,7 @@ h1{
 }
 
 .text_recipe{
-    margin:2%;
+    margin:0% 3% 0% 3%;
     width: fit-content;
     height:auto;
 }

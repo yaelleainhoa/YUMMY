@@ -46,6 +46,7 @@ export default {
     width: 80%;
     display: flex;
     flex-wrap:wrap;
+    border-radius: 10px;
 }
 
 #ingredients > div{

@@ -43,7 +43,7 @@ export default {
   background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
+  align-items: center;
   /* justify-content: space-between; */
   height: 60px;
   width: 100%;
@@ -51,10 +51,12 @@ export default {
 
 .logo{
   position: absolute;
+  width:60px;
+  padding: 0.5% 1% 0.5% 1%;
 }
 
 .logo > img{
-  width:60px;
+  width:80%;
 }
 
 .remove{
@@ -62,10 +64,6 @@ export default {
   height: 8%;
   cursor:pointer;
   opacity: 0;
-}
-
-.input{
-  height: 90%;
 }
 
 .show{
@@ -76,15 +74,6 @@ export default {
   width: 100%;
 }
 
-/* button{
-  padding:2%;
-} */
-
-/* .search{
-  display: flex;
-  flex-direction: row;
-  width: 50%;
-} */
 
 .search-area{
   display: flex;
