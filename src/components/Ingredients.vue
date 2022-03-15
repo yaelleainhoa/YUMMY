@@ -40,7 +40,7 @@ export default {
 <style scoped>
 
 #ingredients{
-    background-color: rgb(243, 187, 187);
+    background-color: var(--ingredient-color);
     margin:5%;
     padding: 5%;
     width: 80%;

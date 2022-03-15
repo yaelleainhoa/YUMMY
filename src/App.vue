@@ -89,6 +89,12 @@ export default {
 
 <style>
 
+:root{
+  --button-color: #ff6f61;
+  --ingredient-color:#ebebeb;
+  --shadow-color:rgb(231, 231, 231);
+}
+
 body{
   background-color: rgb(255, 255, 255);
   margin:0px;
@@ -101,7 +107,7 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background-color: rgb(243, 213, 211);
+  background-color: #ffffff;
   margin-left: 0.5%;
 }
 
@@ -130,7 +136,7 @@ img{
 button{
   width: fit-content;
   padding:1%;
-  background-color: #f86565;
+  background-color: var(--button-color);
   border: none;
   color: white;
   cursor:pointer;

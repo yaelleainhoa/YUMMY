@@ -37,7 +37,7 @@ export default {
 
 <style scoped>
 h1{
-    color:#f86565;
+    color:var(--button-color);
     text-align: start;
 }
 #card{

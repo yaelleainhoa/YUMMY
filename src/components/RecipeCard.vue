@@ -1,8 +1,8 @@
 <template>
   <div id="card">
+    <h1>{{title_recipe }}</h1>
     <div class="image_recipe"><img v-bind:src="picture_url"></div>
     <div class="text_recipe">
-      <h1>{{title_recipe }}</h1>
       <Ingredients v-bind:idMeal = "id"/>
       <button class="seeRecipe"  v-on:click="udpate()">Click to see the recipe</button>
     </div>
@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 h1{
-    color:#f86565;
+    color:var(--button-color);
     text-align: start;
 }
 
@@ -42,14 +42,17 @@ h1{
     flex-direction: column;
     background-color: rgb(255, 255, 255);
     margin:3%;
-    border:solid;
-    border-width: 0 0 0 2px;
-    border-color: #ffb2b2;
+    /* border:solid; */
+    /* border-width: 0 0 0 2px; */
+    /* border-color: #ffb2b2; */
     align-items: center;
+    padding-top:2%;
+    box-shadow: 0px 0px 20px var(--shadow-color);
+    border-radius: 20px;
 }
 
 .text_recipe{
-    margin:2%;
+    margin:0%;
     width: fit-content;
     height:auto;
     padding:5%;

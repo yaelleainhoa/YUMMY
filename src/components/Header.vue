@@ -6,8 +6,7 @@
     </div>
 
     <div class="search-area">
-      <input type="search" class="input" v-model="search" placeholder="Search a Recipe">
-      <button v-on:click="sendForm()">Search</button>
+      <input v-on:keyup.enter="sendForm()" type="search" class="input" v-model="search" placeholder="Search a Recipe">
       <div :class="search?'show':''" @click="cleanSearch" class="remove">
         <img src="@/assets/remove.png">
       </div>
@@ -47,6 +46,7 @@ export default {
   /* justify-content: space-between; */
   height: 60px;
   width: 100%;
+  box-shadow: 0px 20px 20px var(--shadow-color);
 }
 
 .logo{
@@ -59,11 +59,23 @@ export default {
   width:80%;
 }
 
+button{
+  padding: 3% 5%;
+}
+
+input{
+  border-radius: 50px;
+  padding:1% 3%;
+  border: 0.5px solid;
+  border-color: gray;
+}
+
 .remove{
   width: 8%;
   height: 8%;
   cursor:pointer;
   opacity: 0;
+  margin-left:5%;
 }
 
 .show{
