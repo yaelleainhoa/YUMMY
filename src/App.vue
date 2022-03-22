@@ -29,7 +29,7 @@
 import RecipeCard from './components/RecipeCard.vue'
 import RecipePage from './components/RecipePage.vue'
 import Header from './components/Header.vue'
-import {getMealsDataByName, getMealsLaunchWebsite} from "@/services/api/mealAPI.js"
+import {getMealsDataByName, getMealsLaunchWebsite, getAllDataMeals} from "@/services/api/mealAPI.js"
 
 export default {
   name: 'App',
@@ -41,6 +41,7 @@ export default {
   data() {
     return {
       mealsData: [],
+      allData: [],
       isVisible:false,
       idMeal:null,
       mainMealData:[],
@@ -49,6 +50,7 @@ export default {
   },
   created: function(){
     this.lauchWebsite();
+    this.allData = getAllDataMeals();
     // this.retrieveMealsData(this.nameRecipes);
   },
   computed: {
