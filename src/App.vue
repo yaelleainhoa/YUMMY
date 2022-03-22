@@ -2,23 +2,23 @@
   <div id="app">
     <Header v-on:searchRecipe="seeSearchedRecipes"/>      
     <div class="mainRecipe" v-if="idMeal != null">
-        <RecipePage :title_recipe="mainMeal.strMeal" :picture_url="mainMeal.strMealThumb" 
-        :recipe="mainMeal.strInstructions.split('\n')" :id="mainMeal.idMeal" 
+        <RecipePage :title_recipe="mainMeal.meal.strMeal" :picture_url="mainMeal.meal.strMealThumb" 
+        :recipe="mainMeal.meal.strInstructions.split('\n')" :ingredients="mainMeal.ingredients"
         v-on:hideMainRecipe="seeRecipes"/>
     </div>
 
     <div class="page" v-else>
       <div class="first_column">
-        <div v-for="meal in mealsDataSelected.slice(0,(mealsDataSelected.length+1)/2)" :key="meal.id">
-          <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" 
-          :id="meal.idMeal" v-on:updateVisibility="seeMainRecipe"/>
+        <div v-for="meal in seeFilteredMeals.slice(0,(seeFilteredMeals.length+1)/2)" :key="meal.id">
+          <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
+          v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
         </div>
       </div>
 
       <div class="second_column">
-        <div v-for="meal in mealsDataSelected.slice((mealsDataSelected.length+1)/2)" :key="meal.id">
-          <RecipeCard :title_recipe="meal.strMeal" :picture_url="meal.strMealThumb" 
-        :id="meal.idMeal" v-on:updateVisibility="seeMainRecipe"/>
+        <div v-for="meal in seeFilteredMeals.slice((seeFilteredMeals.length+1)/2)" :key="meal.id">
+          <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
+          v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
 import RecipeCard from './components/RecipeCard.vue'
 import RecipePage from './components/RecipePage.vue'
 import Header from './components/Header.vue'
-import {getMealsDataByName, getMealsLaunchWebsite, getAllDataMeals} from "@/services/api/mealAPI.js"
+import {getAllDataMeals} from "@/services/api/mealAPI.js"
 
 export default {
   name: 'App',
@@ -41,7 +41,6 @@ export default {
   data() {
     return {
       mealsData: [],
-      allData: [],
       isVisible:false,
       idMeal:null,
       mainMealData:[],
@@ -49,31 +48,36 @@ export default {
     }
   },
   created: function(){
-    this.lauchWebsite();
-    this.allData = getAllDataMeals();
-    // this.retrieveMealsData(this.nameRecipes);
+    this.retrieveMealsData(this.nameRecipes);
   },
   computed: {
     mainMeal: function(){
-      let meal = this.mealsData.find(element => element.idMeal == this.idMeal);
+      let meal = this.mealsData.find(element => element.meal.idMeal == this.idMeal);
       return meal;
     },
     mealsDataSelected: function(){
-      // this.retrieveMealsData(this.nameRecipes);
-      return this.mealsData;
-    }
+      return this.mealsData.slice(0,40);
+    },
+    seeFilteredMeals: function(){
+      let meals = this.mealsData;
+      if(this.nameRecipes){
+        meals = meals.filter(meal => meal.meal.strMeal.includes(this.nameRecipes));
+        console.log("NAME : ",meals[0].meal.strMeal, this.nameRecipes);
+
+      }
+      console.log("filtered meals : ", meals);
+      return meals.slice(0,40);
+    },
   },
 	methods: {
-    async retrieveMealsData(mealName) {
-        this.mealsData = await getMealsDataByName(mealName);
-    },
-
-    async lauchWebsite(){
-      this.mealsData = await getMealsLaunchWebsite();
+    async retrieveMealsData() {
+        this.mealsData = await getAllDataMeals();
+        console.log("test meals :", this.mealsData);
     },
 
     seeMainRecipe: function(id){
       this.idMeal = id;
+      console.log("idMeal :",id);
     },
 
     seeRecipes: function(){
@@ -82,7 +86,6 @@ export default {
 
     seeSearchedRecipes: function(name){
       this.nameRecipes = name;
-      this.retrieveMealsData(this.nameRecipes);
     },
 
 	}

@@ -1,6 +1,6 @@
 <template>
   <div id="ingredients">
-    <div v-for="ingredient in this.ingredientsData" :key="ingredient.id">
+    <div v-for="ingredient in this.ingredients" :key="ingredient.id">
       <Ingredient :ingredient="ingredient.name" :quantity="ingredient.measure"/>
     </div>
   </div>
@@ -9,12 +9,11 @@
 <script>
 
 import Ingredient from './Ingredient.vue'
-import {getIngredientsDataById} from '../services/api/mealAPI.js'
 
 export default {
   name: 'Ingredients',
   props: {
-    idMeal:{}
+    ingredients:{}
   },
   components: {
     Ingredient
@@ -24,17 +23,9 @@ export default {
       ingredientsData: [],
       ingredientNumber: null
           }
-  },
-  created: function(){
-    this.retrieveIngredientsData();
-  },
-	methods: {
-			async retrieveIngredientsData() {
-					this.ingredientsData = await getIngredientsDataById(this.idMeal);
-          this.ingredientNumber = this.ingredientsData.length;
-			}
+  }
 }
-}
+
 </script>
 
 <style scoped>

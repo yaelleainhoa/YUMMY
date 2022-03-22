@@ -4,7 +4,7 @@
     <h1>{{title_recipe }}</h1>
     <div class="image_recipe"><img v-bind:src="picture_url"></div>
     <div class="text_recipe">
-        <Ingredients v-bind:idMeal = "id"/>
+        <Ingredients :ingredients="ingredients"/>
         <div class="recipe">
           <div v-for="recipe_line in recipe" v-bind:key="recipe_line.id"><p>{{recipe_line}}</p>
           </div>
@@ -22,7 +22,7 @@ export default {
     title_recipe: {type: String, default : "No title"},
     recipe: {type: Array},
     picture_url:{type: String, default:require ("../assets/logo.png")},
-    id:{}
+    ingredients:{type: Array}
   },
   components: {
       Ingredients

@@ -3,7 +3,7 @@
     <h1>{{title_recipe }}</h1>
     <div class="image_recipe"><img v-bind:src="picture_url"></div>
     <div class="text_recipe">
-      <Ingredients v-bind:idMeal = "id"/>
+      <Ingredients v-bind:idMeal = "id" :ingredients="ingredients"/>
       <button class="seeRecipe"  v-on:click="udpate()">Click to see the recipe</button>
     </div>
   </div>
@@ -17,7 +17,8 @@ export default {
   props: {
     title_recipe: {type: String, default : "No title"},
     picture_url:{type: String, default:require ("../assets/logo.png")},
-    id:{}
+    id:{},
+    ingredients:{type: Array}
   },
   components: {
       Ingredients

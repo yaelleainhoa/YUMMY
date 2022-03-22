@@ -113,7 +113,6 @@ const getAllDataMeals =
       }
     }
   }
-  console.log('meals : ', data);
   return data;
 }
 
