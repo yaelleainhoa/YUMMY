@@ -61,23 +61,18 @@ export default {
     seeFilteredMeals: function(){
       let meals = this.mealsData;
       if(this.nameRecipes){
-        meals = meals.filter(meal => meal.meal.strMeal.includes(this.nameRecipes));
-        console.log("NAME : ",meals[0].meal.strMeal, this.nameRecipes);
-
+        meals = meals.filter(meal => (meal.meal.strMeal.toLowerCase().includes(this.nameRecipes.toLowerCase())) || (meal.ingredients.some(ingredient => ingredient.name.toLowerCase().includes(this.nameRecipes.toLowerCase()))));
       }
-      console.log("filtered meals : ", meals);
       return meals.slice(0,40);
     },
   },
 	methods: {
     async retrieveMealsData() {
         this.mealsData = await getAllDataMeals();
-        console.log("test meals :", this.mealsData);
     },
 
     seeMainRecipe: function(id){
       this.idMeal = id;
-      console.log("idMeal :",id);
     },
 
     seeRecipes: function(){
