@@ -1,24 +1,28 @@
 <template>
   <div id="app">
-    <Header v-on:searchRecipe="seeSearchedRecipes"/>      
-    <div class="mainRecipe" v-if="idMeal != null">
-        <RecipePage :title_recipe="mainMeal.meal.strMeal" :picture_url="mainMeal.meal.strMealThumb" 
-        :recipe="mainMeal.meal.strInstructions.split('\n')" :ingredients="mainMeal.ingredients"
-        v-on:hideMainRecipe="seeRecipes"/>
+    <Header v-on:searchRecipe="seeSearchedRecipes"/>   
+    <div v-if="!loaded" class="loading">
     </div>
-
-    <div class="page" v-else>
-      <div class="first_column">
-        <div v-for="meal in seeFilteredMeals.slice(0,(seeFilteredMeals.length+1)/2)" :key="meal.id">
-          <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
-          v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
-        </div>
+    <div v-else class="loaded">
+      <div class="mainRecipe" v-if="idMeal != null">
+          <RecipePage :title_recipe="mainMeal.meal.strMeal" :picture_url="mainMeal.meal.strMealThumb" 
+          :recipe="mainMeal.meal.strInstructions.split('\n')" :ingredients="mainMeal.ingredients"
+          v-on:hideMainRecipe="seeRecipes"/>
       </div>
 
-      <div class="second_column">
-        <div v-for="meal in seeFilteredMeals.slice((seeFilteredMeals.length+1)/2)" :key="meal.id">
-          <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
-          v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
+      <div class="page" v-else>
+        <div class="first_column">
+          <div v-for="meal in seeFilteredMeals.slice(0,(seeFilteredMeals.length+1)/2)" :key="meal.id">
+            <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
+            v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
+          </div>
+        </div>
+
+        <div class="second_column">
+          <div v-for="meal in seeFilteredMeals.slice((seeFilteredMeals.length+1)/2)" :key="meal.id">
+            <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
+            v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
+          </div>
         </div>
       </div>
     </div>
@@ -44,7 +48,8 @@ export default {
       isVisible:false,
       idMeal:null,
       mainMealData:[],
-      nameRecipes:""
+      nameRecipes:"",
+      loaded:false
     }
   },
   created: function(){
@@ -69,6 +74,7 @@ export default {
 	methods: {
     async retrieveMealsData() {
         this.mealsData = await getAllDataMeals();
+        this.pageLoaded();
     },
 
     seeMainRecipe: function(id){
@@ -82,6 +88,10 @@ export default {
     seeSearchedRecipes: function(name){
       this.nameRecipes = name;
     },
+
+    pageLoaded: function(){
+      this.loaded = true;
+    }
 
 	}
 }
@@ -143,4 +153,36 @@ button{
   margin:1%;
   border-radius: 50px;
 }
+
+.loading {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width: 1rem; /* control the size */
+  background: var(--button-color); /* control the color here */
+}
+.loading,
+.loading::before,
+.loading::after {
+  content: "";
+  display: grid;
+  grid-area: 1/1;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.2); /* and here, 3 is the transparency */
+  animation: r 3s linear infinite var(--s, 0s);
+}
+.loading::before {
+  --s: 1s;
+}
+.loading::after {
+  --s: 2s;
+}
+
+@keyframes r {
+  to {
+    box-shadow: 0 0 0 6rem #0000;
+  }
+}
+
 </style>
