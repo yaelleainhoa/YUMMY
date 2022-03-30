@@ -12,18 +12,21 @@
 
       <div class="page" v-else>
         <div class="first_column">
-          <div v-for="meal in seeFilteredMeals.slice(0,(seeFilteredMeals.length+1)/2)" :key="meal.id">
+          <div v-for="meal in seeFilteredMeals.slice(0,nb_of_recipes/2)" :key="meal.id">
             <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
             v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
           </div>
         </div>
 
         <div class="second_column">
-          <div v-for="meal in seeFilteredMeals.slice((seeFilteredMeals.length+1)/2)" :key="meal.id">
+          <div v-for="meal in seeFilteredMeals.slice(seeFilteredMeals.length/2, seeFilteredMeals.length/2 + nb_of_recipes/2)" :key="meal.id">
             <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
             v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
           </div>
         </div>
+      </div>
+      <div class="more_recipes">
+        <button  :class="!more_recipes?'disallow':''" v-on:click="seeMoreRecipes">See more recipes</button>
       </div>
     </div>
   </div>
@@ -49,7 +52,9 @@ export default {
       idMeal:null,
       mainMealData:[],
       nameRecipes:"",
-      loaded:false
+      loaded:false,
+      nb_of_recipes: 20,
+      more_recipes:true
     }
   },
   created: function(){
@@ -61,14 +66,14 @@ export default {
       return meal;
     },
     mealsDataSelected: function(){
-      return this.mealsData.slice(0,40);
+      return this.mealsData;
     },
     seeFilteredMeals: function(){
       let meals = this.mealsData;
       if(this.nameRecipes){
         meals = meals.filter(meal => (meal.meal.strMeal.toLowerCase().includes(this.nameRecipes.toLowerCase())) || (meal.ingredients.some(ingredient => ingredient.name.toLowerCase().includes(this.nameRecipes.toLowerCase()))));
       }
-      return meals.slice(0,40);
+      return meals;
     },
   },
 	methods: {
@@ -87,10 +92,24 @@ export default {
 
     seeSearchedRecipes: function(name){
       this.nameRecipes = name;
+      this.nb_of_recipes = Math.min(40,this.seeFilteredMeals.length);
     },
 
     pageLoaded: function(){
       this.loaded = true;
+    },
+
+    seeMoreRecipes: function(){
+      console.log("nb of recipe before : ", this.nb_of_recipes);
+      console.log("nb of total recipes :", this.seeFilteredMeals.length);
+      let new_nb = this.nb_of_recipes+Math.min(20, this.seeFilteredMeals.length - this.nb_of_recipes);
+      this.nb_of_recipes = new_nb;
+      let next_nb = this.nb_of_recipes+Math.min(20, this.seeFilteredMeals.length - this.nb_of_recipes);
+      this.nb_of_recipes=new_nb;
+      if(new_nb==next_nb){
+        this.more_recipes=false;
+      }
+      console.log("nb of recipe after : ", this.nb_of_recipes);
     }
 
 	}
@@ -103,6 +122,7 @@ export default {
   --button-color: #ff6f61;
   --ingredient-color:#ebebeb;
   --shadow-color:rgb(231, 231, 231);
+  --disable-color:#858585;
 }
 
 body{
@@ -177,6 +197,17 @@ button{
 }
 .loading::after {
   --s: 2s;
+}
+
+.more_recipes{
+  display: flex;
+  justify-content: center;
+  margin:10%;
+}
+
+.disallow{
+  background-color: var(--disable-color);
+  cursor:initial;
 }
 
 @keyframes r {
