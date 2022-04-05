@@ -71,8 +71,8 @@ input{
 }
 
 .remove{
-  width: 8%;
-  height: 8%;
+  width: 22px;
+  height: 22px;
   cursor:pointer;
   opacity: 0;
   margin-left:5%;
@@ -89,7 +89,7 @@ input{
 
 .search-area{
   display: flex;
-  width: 25%;
+  width: 300px;
   flex-direction: row;
   align-items: center;
   margin: auto;

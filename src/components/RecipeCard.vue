@@ -35,7 +35,7 @@ export default {
 <style scoped>
 h1{
     color:var(--button-color);
-    text-align: start;
+    text-align: center;
 }
 
 #card{
@@ -43,9 +43,6 @@ h1{
     flex-direction: column;
     background-color: rgb(255, 255, 255);
     margin:3%;
-    /* border:solid; */
-    /* border-width: 0 0 0 2px; */
-    /* border-color: #ffb2b2; */
     align-items: center;
     padding-top:2%;
     box-shadow: 0px 0px 20px var(--shadow-color);
@@ -69,15 +66,15 @@ h1{
 }
 
 .image_recipe{
-    margin:1%;
-    width: 100%;
-    height:200px;
-    overflow: hidden;
+  margin:1%;
+  width: 100%;
+  height:200px;
+  overflow: hidden;
 }
 
 .image_recipe > img{
-   object-fit: cover; 
-  object-position: center -50px;
+  object-position: center -100px;
+  width: 100%;
 }
 
 </style>

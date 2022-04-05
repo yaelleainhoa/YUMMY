@@ -38,17 +38,16 @@ export default {
 <style scoped>
 h1{
     color:var(--button-color);
-    text-align: start;
+    text-align: center;
 }
 #card{
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(255, 255, 255);
-    margin:3%;
-    border:solid;
-    border-width: 0 0 0 2px;
-    border-color: #e98484;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  margin:3%;
+  align-items: center;
+  box-shadow: 0px 0px 20px var(--shadow-color);
+  border-radius: 20px;
 }
 
 .seeRecipes{

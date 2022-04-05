@@ -1,31 +1,3 @@
-const getMealsDataByName =
-    async function(mealName) {
-  const pathMeal =
-      ' https://www.themealdb.com/api/json/v1/1/search.php?s=' + mealName
-  const response = await fetch(pathMeal)
-  if (response.status == 200) {
-    const data = await response.json()
-    return data.meals
-  }
-  else {
-    new Error(response.statusText)
-  }
-}
-
-const getMealsLaunchWebsite =
-    async function() {
-  const pathMeal = ' https://www.themealdb.com/api/json/v1/1/search.php?f=c'
-  const response = await fetch(pathMeal)
-  if (response.status == 200) {
-    const data = await response.json()
-    return data.meals
-  }
-  else {
-    new Error(response.statusText)
-  }
-}
-
-
 const getMealsByFirstLetter =
     async function(letter) {
   const pathMeal =
@@ -40,19 +12,6 @@ const getMealsByFirstLetter =
   }
 }
 
-// const getMealsDataById =
-//     async function(mealId) {
-//   const pathMeal =
-//       'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + mealId
-//   const response = await fetch(pathMeal)
-//   if (response.status == 200) {
-//     const data = await response.json()
-//     return data.meals
-//   }
-//   else {
-//     new Error(response.statusText)
-//   }
-// }
 
 const getIngredientsDataById =
     async function(mealId) {
@@ -117,6 +76,6 @@ const getAllDataMeals =
 }
 
 export {
-  getIngredientsDataById, getMealsDataByName, getMealsLaunchWebsite,
+  getIngredientsDataById,
       getAllDataMeals, getMealsByFirstLetter
 }

@@ -3,6 +3,24 @@
     <Header v-on:searchRecipe="seeSearchedRecipes"/>   
     <div v-if="!loaded" class="loading">
     </div>
+    <div v-else-if="!results">
+      <div class="container">
+          <div class="eyes">
+          <span></span>
+          <span></span>
+          </div>
+          <div class="mouth"></div>
+          <div class="tears"></div>
+          <div class=rain>
+            <div class=rainDrop></div>
+            <div class=rainDrop></div>
+            <div class=rainDrop></div>
+            <div class=rainDrop></div>
+            <div class=rainDrop></div>
+          </div>
+      </div>
+      <h2 class="no_results"> No results...<br> Please try another research</h2>
+    </div>
     <div v-else class="loaded">
       <div class="mainRecipe" v-if="idMeal != null">
           <RecipePage :title_recipe="mainMeal.meal.strMeal" :picture_url="mainMeal.meal.strMealThumb" 
@@ -24,9 +42,9 @@
             v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
           </div>
         </div>
-      </div>
-      <div class="more_recipes">
-        <button  :class="!more_recipes?'disallow':''" v-on:click="seeMoreRecipes">See more recipes</button>
+        <div class="more_recipes">
+          <button  :class="!more_recipes?'disallow':''" v-on:click="seeMoreRecipes">See more recipes</button>
+        </div>
       </div>
     </div>
   </div>
@@ -53,6 +71,7 @@ export default {
       mainMealData:[],
       nameRecipes:"",
       loaded:false,
+      results:true,
       nb_of_recipes: 20,
       more_recipes:true
     }
@@ -91,8 +110,14 @@ export default {
     },
 
     seeSearchedRecipes: function(name){
+      this.results=true;
       this.nameRecipes = name;
       this.nb_of_recipes = Math.min(40,this.seeFilteredMeals.length);
+      this.more_recipes=true;
+      this.idMeal=null;
+      if(this.seeFilteredMeals.length==0){
+        this.results=null;
+      }
     },
 
     pageLoaded: function(){
@@ -100,8 +125,6 @@ export default {
     },
 
     seeMoreRecipes: function(){
-      console.log("nb of recipe before : ", this.nb_of_recipes);
-      console.log("nb of total recipes :", this.seeFilteredMeals.length);
       let new_nb = this.nb_of_recipes+Math.min(20, this.seeFilteredMeals.length - this.nb_of_recipes);
       this.nb_of_recipes = new_nb;
       let next_nb = this.nb_of_recipes+Math.min(20, this.seeFilteredMeals.length - this.nb_of_recipes);
@@ -109,7 +132,6 @@ export default {
       if(new_nb==next_nb){
         this.more_recipes=false;
       }
-      console.log("nb of recipe after : ", this.nb_of_recipes);
     }
 
 	}
@@ -202,7 +224,7 @@ button{
 .more_recipes{
   display: flex;
   justify-content: center;
-  margin:10%;
+  margin: 10% auto;
 }
 
 .disallow{
@@ -214,6 +236,135 @@ button{
   to {
     box-shadow: 0 0 0 6rem #0000;
   }
+}
+
+.container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  background: url(/img/sausage.4aadd610.png) no-repeat;
+  width: 500px;
+  background-size: contain;
+}
+
+.eyes span:first-child{
+    content:'';
+    display: block;
+    height: 10px;
+    width: 10px;
+    top:170px;
+    left: 70px;
+    background:black;
+    border-radius: 100%; 
+    position: absolute;
+}
+.eyes span:last-child{
+    content:'';
+    display: block;
+    height: 10px;
+    width: 10px;
+    top:170px;
+    left: 150px;
+    background:black;
+    border-radius: 100%; 
+    position: absolute;
+}
+.mouth{
+  content: '';
+  display: block;
+  background: black;
+  height: 8px;
+  width: 8px;
+  left: 250px;
+  top: 120px;
+  border-radius: 100% 100% 80% 80%;
+  position: relative;
+}
+
+.eyes{
+  position: absolute;
+  left: 135px;
+  top: -70px;
+}
+
+.tears{
+  content: '';
+  display: block;
+  width: 3px;
+  height: 7px;
+  background: #84C7EB;
+  top: 110px;
+  left: 210px;
+  position: absolute;
+  border-radius: 0 0 100% 100%;
+}
+.rain {
+	width: 180px;
+	height: 140px;
+  position: relative;
+  right: -150px;
+  top: 100px;
+}
+
+.rainDrop {
+	position: relative;
+	float: left;
+	width: 4px;
+	margin: 10px;
+	left: 40px;
+	background: #84C7EB;
+	border-radius: 160px 160px 160px 160px;
+	/*box-shadow: 1px 0.5px 1px 0.5px rgba(0, 0, 0, 0.75);*/
+	animation: rain 0.8s infinite ease-out;
+}
+
+.rainDrop:nth-child(1) {
+	height: 35px;
+	top: 5px;
+	animation-delay: -1.0s;
+	
+}
+
+.rainDrop:nth-child(2) {
+	height: 20px;
+	animation-delay: -1.4s;
+}
+
+.rainDrop:nth-child(3) {
+	height: 15px;
+	top: 5px;
+	animation-delay: -1.6s;
+}
+
+.rainDrop:nth-child(4) {
+	height: 10px;
+	top: 10px;
+	animation-delay: -1.2s;
+}
+
+.rainDrop:nth-child(5) {
+	height: 18px;
+	top: 15px;
+	animation-delay: -1.6s;
+}
+
+.no_results{
+  text-align: center;
+  position: relative;
+  top: 450px;
+}
+
+@keyframes rain {
+	0% {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+	100% {
+		opacity: 0.2;
+		transform: translate(0, 100px);
+	}
 }
 
 </style>
