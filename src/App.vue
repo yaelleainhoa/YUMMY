@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-on:searchRecipe="seeSearchedRecipes" :recipeName="nameRecipes"/>   
+    <Header v-on:searchRecipe="seeSearchedRecipes" v-on:reload="reloadRecipes" :recipeName="nameRecipes"/>   
     <div v-if="!loaded" class="loading">
     </div>
     <div v-else-if="!results">
@@ -93,6 +93,7 @@ export default {
       if(this.nameRecipes){
         meals = meals.filter(meal => (meal.meal.strMeal.toLowerCase().includes(this.nameRecipes.toLowerCase())) || (meal.ingredients.some(ingredient => ingredient.name.toLowerCase().includes(this.nameRecipes.toLowerCase()))));
       }
+      this.doMealsExist(meals);
       return meals;
     },
   },
@@ -111,14 +112,21 @@ export default {
     },
 
     seeSearchedRecipes: function(name){
-      this.results=true;
       this.nameRecipes = name;
       this.nb_of_recipes = Math.min(40,this.seeFilteredMeals.length);
       this.more_recipes=true;
       this.idMeal=null;
-      if(this.seeFilteredMeals.length==0){
+    },
+
+    doMealsExist: function(meals){
+      this.results=true;
+      if(meals.length==0){
         this.results=null;
       }
+    },
+
+    reloadRecipes: function(){
+      this.nameRecipes="";
     },
 
     pageLoaded: function(){

@@ -6,7 +6,10 @@
     </div>
 
     <div class="search-area">
-      <input v-on:keyup.enter="sendForm()" type="search" class="input" v-model="search" :placeholder="recipeName"> 
+      <div class="reload" @click="reloadReseach(), sendForm()">
+        <img src="@/assets/reload.png">
+      </div>
+      <input v-on:keyup.enter="sendForm()" type="search" class="input" v-model="search" :placeholder="latestRecipe"> 
       <div :class="search?'show':''" @click="cleanSearch" class="remove">
         <img src="@/assets/remove.png">
       </div>
@@ -20,17 +23,29 @@
 export default {
   name: 'Header',
   props:{
-    recipeName: {type: String, default : ""},
+    recipeName: {type: String},
   },
   data(){
     return{
-      search:""
+      search:"",
+    }
+  },
+  computed: {
+    latestRecipe: function(){
+      if(!this.recipeName){
+        return "Search recipes"
+      }
+      return this.recipeName;
     }
   },
   methods: {
     sendForm: function () {
       window.scroll(0,0);
       this.$emit("searchRecipe", this.search)
+    },
+    reloadReseach: function(){
+      this.$emit("reload");
+      this.search="";
     },
     cleanSearch: function(){
       this.search=""
@@ -81,11 +96,18 @@ input{
   margin-left:5%;
 }
 
+.reload{
+  width: 22px;
+  height: 22px;
+  cursor:pointer;
+  margin-right:5%;
+}
+
 .show{
   opacity: 1;
 }
 
-.remove > img{
+img{
   width: 100%;
 }
 
