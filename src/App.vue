@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-on:searchRecipe="seeSearchedRecipes"/>   
+    <Header v-on:searchRecipe="seeSearchedRecipes" :recipeName="nameRecipes"/>   
     <div v-if="!loaded" class="loading">
     </div>
     <div v-else-if="!results">
@@ -63,13 +63,17 @@ export default {
     Header,
     RecipePage
     },
+    watch: {
+		nameRecipes: function(newSearch) {
+			localStorage.setItem("search", newSearch)
+		}},
   data() {
     return {
       mealsData: [],
       isVisible:false,
       idMeal:null,
       mainMealData:[],
-      nameRecipes:"",
+      nameRecipes: localStorage.getItem("search") || "",
       loaded:false,
       results:true,
       nb_of_recipes: 20,
@@ -83,9 +87,6 @@ export default {
     mainMeal: function(){
       let meal = this.mealsData.find(element => element.meal.idMeal == this.idMeal);
       return meal;
-    },
-    mealsDataSelected: function(){
-      return this.mealsData;
     },
     seeFilteredMeals: function(){
       let meals = this.mealsData;
@@ -244,7 +245,7 @@ button{
   left: 50%;
   transform: translate(-50%, -50%);
   height: 200px;
-  background: url(/img/sausage.4aadd610.png) no-repeat;
+  background: url(assets/sausage.png) no-repeat;
   width: 500px;
   background-size: contain;
 }

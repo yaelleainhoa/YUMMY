@@ -6,7 +6,7 @@
     </div>
 
     <div class="search-area">
-      <input v-on:keyup.enter="sendForm()" type="search" class="input" v-model="search" placeholder="Search a Recipe">
+      <input v-on:keyup.enter="sendForm()" type="search" class="input" v-model="search" :placeholder="recipeName"> 
       <div :class="search?'show':''" @click="cleanSearch" class="remove">
         <img src="@/assets/remove.png">
       </div>
@@ -19,6 +19,9 @@
 
 export default {
   name: 'Header',
+  props:{
+    recipeName: {type: String, default : ""},
+  },
   data(){
     return{
       search:""
