@@ -4,7 +4,8 @@
     <div v-if="!loaded" class="loading">
     </div>
     <div v-else-if="!results">
-      <div class="container">
+      <Scene containerId="noResults"/>
+      <!-- <div class="container">
           <div class="eyes">
           <span></span>
           <span></span>
@@ -18,7 +19,7 @@
             <div class=rainDrop></div>
             <div class=rainDrop></div>
           </div>
-      </div>
+      </div> -->
       <h2 class="no_results"> No results...<br> Please try another research</h2>
     </div>
     <div v-else class="loaded">
@@ -55,13 +56,16 @@ import RecipeCard from './components/RecipeCard.vue'
 import RecipePage from './components/RecipePage.vue'
 import Header from './components/Header.vue'
 import {getAllDataMeals} from "@/services/api/mealAPI.js"
+import Scene from '@/components/noResults.vue'
+
 
 export default {
   name: 'App',
   components: {
     RecipeCard,
     Header,
-    RecipePage
+    RecipePage,
+    Scene
     },
     watch: {
 		nameRecipes: function(newSearch) {

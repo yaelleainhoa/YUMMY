@@ -1,14 +1,20 @@
 <template>
   <div id="card">
-    <button class="seeRecipes"  v-on:click="udpate()">Click to go back</button>
-    <h1>{{title_recipe }}</h1>
-    <div class="image_recipe"><img v-bind:src="picture_url"></div>
-    <div class="text_recipe">
-        <Ingredients :ingredients="ingredients"/>
-        <div class="recipe">
-          <div v-for="recipe_line in recipe" v-bind:key="recipe_line.id"><p>{{recipe_line}}</p>
+          <img src="@/assets/return.png" class="seeRecipes"  v-on:click="udpate()">
+
+
+    <div id="content">
+      <div class="image_recipe"><img v-bind:src="picture_url"></div>
+      <div class="text_recipe">
+            <div id="title">
+      <h1>{{title_recipe }}</h1>
+    </div>
+          <Ingredients :ingredients="ingredients"/>
+          <div class="recipe">
+            <div v-for="recipe_line in recipe" v-bind:key="recipe_line.id"><p>{{recipe_line}}</p>
+            </div>
           </div>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -44,14 +50,26 @@ h1{
   display: flex;
   flex-direction: column;
   background-color: rgb(255, 255, 255);
-  margin:3%;
-  align-items: center;
-  box-shadow: 0px 0px 20px var(--shadow-color);
-  border-radius: 20px;
+  margin:3% 0%;
+  padding: 1%;
+  /* align-items: center; */
+  /* box-shadow: 0px 0px 20px var(--shadow-color);
+  border-radius: 20px; */
+}
+
+#content{
+  display: flex;
+}
+
+#title{
+  display: flex;
 }
 
 .seeRecipes{
+  width: 40px;
+  height: 40px;
   margin:2%;
+  cursor: pointer;
 }
 
 .text_recipe{
@@ -61,12 +79,12 @@ h1{
 }
 
 .image_recipe{
-    margin:1%;
-    width: 50%;
+    margin:auto;
+    width:70%;
 }
 
 .image_recipe > img{
-  width: 80%;
+  width: 100%;
 }
 
 </style>
