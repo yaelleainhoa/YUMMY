@@ -97,4 +97,17 @@ h1{
     border-radius: 20px;
 }
 
+@media (max-width: 768px) {
+  .view{
+    flex-direction: column;
+  }
+  .image_recipe > img{
+    width: 60%;
+  }
+
+  .header{
+    margin-top:5%;
+    justify-content: center;
+  }
+}
 </style>

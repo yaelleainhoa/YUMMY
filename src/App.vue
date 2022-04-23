@@ -155,7 +155,7 @@ export default {
   --button-color: #ff6f61;
   --ingredient-color:#ebebeb;
   --shadow-color:rgb(231, 231, 231);
-  --disable-color:#858585;
+  --disable-color:#bdbdbd;
 }
 
 body{
@@ -249,6 +249,12 @@ button{
 .disallow{
   background-color: var(--disable-color);
   cursor:initial;
+}
+
+@media (max-width: 768px) {
+  .page > div{
+    width: 100%;
+  }
 }
 
 </style>
