@@ -5,22 +5,6 @@
     </div>
     <div v-else-if="!results">
       <Scene containerId="noResults"/>
-      <!-- <div class="container">
-          <div class="eyes">
-          <span></span>
-          <span></span>
-          </div>
-          <div class="mouth"></div>
-          <div class="tears"></div>
-          <div class=rain>
-            <div class=rainDrop></div>
-            <div class=rainDrop></div>
-            <div class=rainDrop></div>
-            <div class=rainDrop></div>
-            <div class=rainDrop></div>
-          </div>
-      </div> -->
-      <h2 class="no_results"> No results...<br> Please try another research</h2>
     </div>
     <div v-else class="loaded">
       <div class="mainRecipe" v-if="idMeal != null">
@@ -361,12 +345,6 @@ button{
 	height: 18px;
 	top: 15px;
 	animation-delay: -1.6s;
-}
-
-.no_results{
-  text-align: center;
-  position: relative;
-  top: 450px;
 }
 
 @keyframes rain {

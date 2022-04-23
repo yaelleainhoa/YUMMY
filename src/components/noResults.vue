@@ -1,5 +1,7 @@
 <template>
-  <div id="noResults">
+  <div id="none">
+    <div id="noResults"></div>
+    <h2 class="text"> No results...<br> Please try another research</h2>
   </div>
 </template>
 
@@ -25,6 +27,15 @@ export default {
       required: true
     }
   },
+  created: function() {
+  const timer = setInterval(() => {
+    this.renderScene();
+  }, 10);
+
+  this.$once("hook:beforeDestroy", () => {
+    clearInterval(timer);
+  });
+  },
   mounted: 
   async function(){
     this.init();
@@ -34,7 +45,7 @@ export default {
     async init() {
       console.log("INIT")
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color('salmon');
+      this.scene.background = null;
       this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.outputEncoding = THREE.sRGBEncoding;
@@ -47,7 +58,7 @@ export default {
         0.25,
         20
       );
-      this.camera.position.set(0, 10,0);
+      this.camera.position.set(-5, 5,5);
       const controls = new OrbitControls(this.camera, this.renderer.domElement);
      controls.minDistance = 2;
      controls.maxDistance = 10;
@@ -66,16 +77,16 @@ export default {
       light.position.set(0, 1, 0);
       this.scene.add(light);
 
-      const geometry = new THREE.SphereGeometry( 0.5, 32, 16 );
-      const material = new THREE.MeshPhongMaterial( { color: 0xffff00 } );
-      const sphere = new THREE.Mesh( geometry, material );
-      sphere.position.set(0,0,1);
-      this.scene.add( sphere );
+      // const geometry = new THREE.SphereGeometry( 0.5, 32, 16 );
+      // const material = new THREE.MeshPhongMaterial( { color: 0xffff00 } );
+      // const sphere = new THREE.Mesh( geometry, material );
+      // sphere.position.set(0,0,1);
+      // this.scene.add( sphere );
 
       const loader = new GLTFLoader();
       loader.crossOrigin = false;
       let me = this;
-      let path = "../assets/fridge.glb"
+      let path = "/threeAssets/fridge.glb"
 
       //https://s3-us-west-2.amazonaws.com/s.cdpn.io/39255/ladybug.gltf
 
@@ -83,16 +94,31 @@ export default {
       function(gltf){
         if(gltf){
           let object = gltf.scene;
-          object.position.set(0,0,0);
+          object.position.set(0,-1.5,0);
+          object.scale.set(0.2,0.2,0.2);
+          object.name = "fridge";
           me.scene.add(object);
+          me.renderScene();
         }
       })
       
     },
 
     renderScene() {
+      this.rotateObject();
       this.renderer.render(this.scene, this.camera);
     },
+
+    rotateObject(){
+      var SPEED = 0.005;
+      let object = this.scene.getObjectByName("fridge");
+      if(object){
+        console.log(object);
+        //object.rotation.x -= SPEED * 2;
+        object.rotation.y -= SPEED;
+        //object.rotation.z -= SPEED * 3;
+      }
+    }
 
   }
 };
@@ -100,8 +126,21 @@ export default {
 </script>
 
 <style scoped>
+
+#none{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #noResults{
-    width:500px;
-    height: 500px;
+  width:500px;
+  height: 500px;
+}
+
+.text{
+  text-align: center;
+  top: 450px;
 }
 </style>
