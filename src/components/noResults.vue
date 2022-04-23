@@ -60,9 +60,8 @@ export default {
       );
       this.camera.position.set(-5, 5,5);
       const controls = new OrbitControls(this.camera, this.renderer.domElement);
-     controls.minDistance = 2;
-     controls.maxDistance = 10;
       controls.enablePan = false;
+      controls.enableZoom = false;
       controls.target.set(0, 0, 0);
       controls.addEventListener("change", this.renderScene); 
       const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
@@ -77,18 +76,11 @@ export default {
       light.position.set(0, 1, 0);
       this.scene.add(light);
 
-      // const geometry = new THREE.SphereGeometry( 0.5, 32, 16 );
-      // const material = new THREE.MeshPhongMaterial( { color: 0xffff00 } );
-      // const sphere = new THREE.Mesh( geometry, material );
-      // sphere.position.set(0,0,1);
-      // this.scene.add( sphere );
 
       const loader = new GLTFLoader();
       loader.crossOrigin = false;
       let me = this;
       let path = "/threeAssets/fridge.glb"
-
-      //https://s3-us-west-2.amazonaws.com/s.cdpn.io/39255/ladybug.gltf
 
       loader.load(path,
       function(gltf){
@@ -110,13 +102,11 @@ export default {
     },
 
     rotateObject(){
-      var SPEED = 0.005;
+      var SPEED = 0.0005;
       let object = this.scene.getObjectByName("fridge");
       if(object){
         console.log(object);
-        //object.rotation.x -= SPEED * 2;
         object.rotation.y -= SPEED;
-        //object.rotation.z -= SPEED * 3;
       }
     }
 

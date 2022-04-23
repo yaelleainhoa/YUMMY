@@ -15,20 +15,20 @@
 
       <div class="page" v-else>
         <div class="first_column">
-          <div v-for="meal in seeFilteredMeals.slice(0,nb_of_recipes/2)" :key="meal.id">
+          <div v-for="meal in seeFilteredMeals.slice(0,nb_of_recipes/2+1)" :key="meal.id">
             <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
             v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
           </div>
         </div>
 
         <div class="second_column">
-          <div v-for="meal in seeFilteredMeals.slice(seeFilteredMeals.length/2, seeFilteredMeals.length/2 + nb_of_recipes/2)" :key="meal.id">
+          <div v-for="meal in seeFilteredMeals.slice(seeFilteredMeals.length/2, seeFilteredMeals.length/2 + nb_of_recipes/2-1)" :key="meal.id">
             <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
             v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
           </div>
         </div>
         <div class="more_recipes">
-          <button  :class="!more_recipes?'disallow':''" v-on:click="seeMoreRecipes">See more recipes</button>
+          <button  :class="!more_recipes?'disallow':''" v-on:click="seeMoreRecipes">See more</button>
         </div>
       </div>
     </div>
@@ -88,6 +88,8 @@ export default {
 	methods: {
     async retrieveMealsData() {
         this.mealsData = await getAllDataMeals();
+        this.updateNumberOfRecipes();
+        this.areThereMoreRecipes();
         this.pageLoaded();
     },
 
@@ -101,9 +103,22 @@ export default {
 
     seeSearchedRecipes: function(name){
       this.nameRecipes = name;
-      this.nb_of_recipes = Math.min(40,this.seeFilteredMeals.length);
-      this.more_recipes=true;
+      this.updateNumberOfRecipes();
+      this.areThereMoreRecipes();
       this.idMeal=null;
+    },
+
+    areThereMoreRecipes(){
+      if(this.seeFilteredMeals.length>40){
+        this.more_recipes=true;
+      }
+      else{
+        this.more_recipes=false;
+      }
+    },
+
+    updateNumberOfRecipes: function(){
+      this.nb_of_recipes = Math.min(40,this.seeFilteredMeals.length);
     },
 
     doMealsExist: function(meals){
@@ -125,7 +140,6 @@ export default {
       let new_nb = this.nb_of_recipes+Math.min(20, this.seeFilteredMeals.length - this.nb_of_recipes);
       this.nb_of_recipes = new_nb;
       let next_nb = this.nb_of_recipes+Math.min(20, this.seeFilteredMeals.length - this.nb_of_recipes);
-      this.nb_of_recipes=new_nb;
       if(new_nb==next_nb){
         this.more_recipes=false;
       }
@@ -191,7 +205,9 @@ button{
   cursor:pointer;
   margin:1%;
   border-radius: 50px;
+  padding: 2% 3%; 
 }
+
 
 .loading {
   position:absolute;
@@ -218,6 +234,12 @@ button{
   --s: 2s;
 }
 
+@keyframes r {
+  to {
+    box-shadow: 0 0 0 6rem #0000;
+  }
+}
+
 .more_recipes{
   display: flex;
   justify-content: center;
@@ -227,135 +249,6 @@ button{
 .disallow{
   background-color: var(--disable-color);
   cursor:initial;
-}
-
-@keyframes r {
-  to {
-    box-shadow: 0 0 0 6rem #0000;
-  }
-}
-
-.container{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 200px;
-  background: url(assets/sausage.png) no-repeat;
-  width: 500px;
-  background-size: contain;
-}
-
-.eyes span:first-child{
-    content:'';
-    display: block;
-    height: 10px;
-    width: 10px;
-    top:170px;
-    left: 70px;
-    background:black;
-    border-radius: 100%; 
-    position: absolute;
-}
-.eyes span:last-child{
-    content:'';
-    display: block;
-    height: 10px;
-    width: 10px;
-    top:170px;
-    left: 150px;
-    background:black;
-    border-radius: 100%; 
-    position: absolute;
-}
-.mouth{
-  content: '';
-  display: block;
-  background: black;
-  height: 8px;
-  width: 8px;
-  left: 250px;
-  top: 120px;
-  border-radius: 100% 100% 80% 80%;
-  position: relative;
-}
-
-.eyes{
-  position: absolute;
-  left: 135px;
-  top: -70px;
-}
-
-.tears{
-  content: '';
-  display: block;
-  width: 3px;
-  height: 7px;
-  background: #84C7EB;
-  top: 110px;
-  left: 210px;
-  position: absolute;
-  border-radius: 0 0 100% 100%;
-}
-.rain {
-	width: 180px;
-	height: 140px;
-  position: relative;
-  right: -150px;
-  top: 100px;
-}
-
-.rainDrop {
-	position: relative;
-	float: left;
-	width: 4px;
-	margin: 10px;
-	left: 40px;
-	background: #84C7EB;
-	border-radius: 160px 160px 160px 160px;
-	/*box-shadow: 1px 0.5px 1px 0.5px rgba(0, 0, 0, 0.75);*/
-	animation: rain 0.8s infinite ease-out;
-}
-
-.rainDrop:nth-child(1) {
-	height: 35px;
-	top: 5px;
-	animation-delay: -1.0s;
-	
-}
-
-.rainDrop:nth-child(2) {
-	height: 20px;
-	animation-delay: -1.4s;
-}
-
-.rainDrop:nth-child(3) {
-	height: 15px;
-	top: 5px;
-	animation-delay: -1.6s;
-}
-
-.rainDrop:nth-child(4) {
-	height: 10px;
-	top: 10px;
-	animation-delay: -1.2s;
-}
-
-.rainDrop:nth-child(5) {
-	height: 18px;
-	top: 15px;
-	animation-delay: -1.6s;
-}
-
-@keyframes rain {
-	0% {
-		opacity: 1;
-		transform: translate(0, 0);
-	}
-	100% {
-		opacity: 0.2;
-		transform: translate(0, 100px);
-	}
 }
 
 </style>

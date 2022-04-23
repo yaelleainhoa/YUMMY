@@ -1,21 +1,21 @@
 <template>
   <div id="card">
-          <img src="@/assets/return.png" class="seeRecipes"  v-on:click="udpate()">
-
-
-    <div id="content">
-      <div class="image_recipe"><img v-bind:src="picture_url"></div>
-      <div class="text_recipe">
-            <div id="title">
-      <h1>{{title_recipe }}</h1>
-    </div>
+      <div class = "view">
+        <div class="image_recipe"><img v-bind:src="picture_url">
+        </div>
+        <div class="content">
+          <div class = "header">
+            <img src="@/assets/return.png" class="seeRecipes"  v-on:click="udpate()">
+            <h1 class="title">{{title_recipe }}</h1>
+          </div>
           <Ingredients :ingredients="ingredients"/>
           <div class="recipe">
             <div v-for="recipe_line in recipe" v-bind:key="recipe_line.id"><p>{{recipe_line}}</p>
             </div>
           </div>
       </div>
-    </div>
+  </div>
+     
   </div>
 </template>
 
@@ -52,17 +52,26 @@ h1{
   background-color: rgb(255, 255, 255);
   margin:3% 0%;
   padding: 1%;
-  /* align-items: center; */
-  /* box-shadow: 0px 0px 20px var(--shadow-color);
-  border-radius: 20px; */
 }
 
-#content{
+.view{
   display: flex;
 }
 
-#title{
+.header{
   display: flex;
+  align-items: center; /* align vertical */
+  margin: 0% 5%;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  flex:1;
+}
+
+.title{
+  margin: 0% 2%;
 }
 
 .seeRecipes{
@@ -72,19 +81,18 @@ h1{
   cursor: pointer;
 }
 
-.text_recipe{
-    margin:0% 3% 0% 3%;
-    width: fit-content;
-    height:auto;
+.recipe{
+  margin: 2% 5%;
 }
 
 .image_recipe{
-    margin:auto;
-    width:70%;
+  flex: 0%;
 }
 
 .image_recipe > img{
   width: 100%;
+        box-shadow: 0px 0px 20px var(--shadow-color);
+    border-radius: 20px;
 }
 
 </style>
