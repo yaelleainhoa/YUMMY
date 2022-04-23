@@ -5,7 +5,9 @@
         </div>
         <div class="content">
           <div class = "header">
-            <img src="@/assets/return.png" class="seeRecipes"  v-on:click="udpate()">
+            <router-link to="/">
+              <img src="@/assets/return.png" class="seeRecipes"  v-on:click="udpate()">
+            </router-link>
             <h1 class="title">{{title_recipe }}</h1>
           </div>
           <Ingredients :ingredients="ingredients"/>

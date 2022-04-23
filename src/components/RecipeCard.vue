@@ -4,7 +4,10 @@
     <div class="image_recipe"><img v-bind:src="picture_url"></div>
     <div class="text_recipe">
       <Ingredients v-bind:idMeal = "id" :ingredients="ingredients"/>
-      <button class="seeRecipe"  v-on:click="udpate()">Click to see the recipe</button>
+      <router-link to="/recipe">
+        <button class="seeRecipe"  v-on:click="udpate()">Click to see the recipe</button>
+      </router-link>
+      <!-- <button class="seeRecipe"  v-on:click="udpate()">Click to see the recipe</button> -->
     </div>
   </div>
 </template>
@@ -61,7 +64,6 @@ h1{
 }
 
 .seeRecipe{
-  width: 30%;
   padding:2%;
 }
 
