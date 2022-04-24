@@ -79,4 +79,10 @@ h1{
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  #card{
+    margin: 20% 3%;
+  }
+}
+
 </style>

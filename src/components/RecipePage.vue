@@ -93,8 +93,8 @@ h1{
 
 .image_recipe > img{
   width: 100%;
-        box-shadow: 0px 0px 20px var(--shadow-color);
-    border-radius: 20px;
+  box-shadow: 0px 0px 20px var(--shadow-color);
+  border-radius: 20px;
 }
 
 @media (max-width: 768px) {
@@ -102,7 +102,13 @@ h1{
     flex-direction: column;
   }
   .image_recipe > img{
+    margin-top:10%;
     width: 60%;
+  }
+  
+  .seeRecipes{
+    width: 25px;
+    height: 25px;
   }
 
   .header{

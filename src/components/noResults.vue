@@ -105,7 +105,6 @@ export default {
       var SPEED = 0.0005;
       let object = this.scene.getObjectByName("fridge");
       if(object){
-        console.log(object);
         object.rotation.y -= SPEED;
       }
     }
@@ -133,4 +132,5 @@ export default {
   text-align: center;
   top: 450px;
 }
+
 </style>
