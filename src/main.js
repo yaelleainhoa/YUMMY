@@ -7,7 +7,7 @@ import Page2 from "./components/RecipePage.vue"
 
 const routes = [
   { path: '', component: Page1, name:"gallery"},
-  { path: '/recipe', component: Page2, name:"recipe" },
+  { path: '/recipe/:id', component: Page2, name:"recipe" },
   { path: '*', redirect: '/'},
 ]
 Vue.config.productionTip = false

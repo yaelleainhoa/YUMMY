@@ -4,10 +4,9 @@
     <div class="image_recipe"><img v-bind:src="picture_url"></div>
     <div class="text_recipe">
       <Ingredients v-bind:idMeal = "id" :ingredients="ingredients"/>
-      <router-link to="/recipe">
+      <router-link :to="{ name: 'recipe' }">
         <button class="seeRecipe"  v-on:click="udpate()">Click to see the recipe</button>
       </router-link>
-      <!-- <button class="seeRecipe"  v-on:click="udpate()">Click to see the recipe</button> -->
     </div>
   </div>
 </template>
@@ -29,6 +28,7 @@ export default {
   methods: {
     udpate: function () {
       window.scroll(0,0);
+      //this.$route.params.id = this.id;
       this.$emit("updateVisibility", this.id)
     }
   }

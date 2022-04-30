@@ -7,7 +7,9 @@
 
     <div class="search-area">
       <div class="reload" @click="reloadReseach(), sendForm()">
-        <img src="@/assets/reload.png">
+        <router-link to="/">
+          <img src="@/assets/reload.png">
+        </router-link>
       </div>
       <input v-on:keyup.enter="sendForm()" type="search" class="input" v-model="search" :placeholder="latestRecipe"> 
       <div :class="search?'show':''" @click="cleanSearch" class="remove">

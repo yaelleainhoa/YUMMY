@@ -15,14 +15,14 @@
 
       <div class="page" v-else>
         <div class="first_column">
-          <div v-for="meal in seeFilteredMeals.slice(0,(nb_of_recipes+1)/2)" :key="meal.id">
+          <div v-for="meal in seeFilteredMeals.slice(0,nb_of_recipes/2+1)" :key="meal.id">
             <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
             v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
           </div>
         </div>
 
         <div class="second_column">
-          <div v-for="meal in seeFilteredMeals.slice((seeFilteredMeals.length+1)/2, (seeFilteredMeals.length+1)/2 + (nb_of_recipes+1)/2)" :key="meal.id">
+          <div v-for="meal in seeFilteredMeals.slice(seeFilteredMeals.length/2, seeFilteredMeals.length/2 + nb_of_recipes/2-1)" :key="meal.id">
             <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
             v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
           </div>
@@ -95,6 +95,9 @@ export default {
 
     seeMainRecipe: function(id){
       this.idMeal = id;
+      console.log(this.$route.params.id)
+      this.$route.params.id = this.idMeal;
+      console.log(this.$route.params.id)
     },
 
     seeRecipes: function(){
@@ -155,7 +158,7 @@ export default {
   --button-color: #ff6f61;
   --ingredient-color:#ebebeb;
   --shadow-color:rgb(231, 231, 231);
-  --disable-color:#bdbdbd;
+  --disable-color:#858585;
 }
 
 body{
@@ -249,20 +252,6 @@ button{
 .disallow{
   background-color: var(--disable-color);
   cursor:initial;
-}
-
-@media (max-width: 768px) {
-  .page > div{
-    width: 100%;
-  }
-
-  h1{
-    font-size:20px;
-  }
-
-  p{
-    font-size:12px;
-  }
 }
 
 </style>
