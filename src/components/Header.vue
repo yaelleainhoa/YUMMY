@@ -1,9 +1,11 @@
 <template>
   <div class="header">
-      
-    <div class="logo">
-      <img src="@/assets/logo.png">
-    </div>
+
+      <div class="logo" @click="reloadReseach(), sendForm()">
+        <router-link to="/">
+           <img src="@/assets/logo.png">
+        </router-link>
+      </div> 
 
     <div class="search-area">
       <div class="reload" @click="reloadReseach(), sendForm()">
@@ -75,7 +77,7 @@ export default {
   padding: 0.5% 1% 0.5% 1%;
 }
 
-.logo > img{
+.logo img{
   width:80%;
 }
 

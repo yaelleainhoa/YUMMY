@@ -15,7 +15,7 @@
 
       <div class="page" v-else>
         <div class="first_column">
-          <div v-for="meal in seeFilteredMeals.slice(0,nb_of_recipes/2+1)" :key="meal.id">
+          <div v-for="meal in seeFilteredMeals.slice(0,nb_of_recipes/2)" :key="meal.id">
             <RecipeCard :title_recipe="meal.meal.strMeal" :picture_url="meal.meal.strMealThumb" 
             v-on:updateVisibility="seeMainRecipe" :ingredients="meal.ingredients" :id="meal.meal.idMeal"/>
           </div>
@@ -32,6 +32,7 @@
         </div>
       </div>
     </div>
+    <Footer/>
   </div>
 </template>
 
@@ -39,6 +40,7 @@
 import RecipeCard from './components/RecipeCard.vue'
 import RecipePage from './components/RecipePage.vue'
 import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 import {getAllDataMeals} from "@/services/api/mealAPI.js"
 import Scene from '@/components/noResults.vue'
 
@@ -49,7 +51,8 @@ export default {
     RecipeCard,
     Header,
     RecipePage,
-    Scene
+    Scene,
+    Footer
     },
     watch: {
 		nameRecipes: function(newSearch) {
@@ -121,7 +124,7 @@ export default {
     },
 
     updateNumberOfRecipes: function(){
-      this.nb_of_recipes = Math.min(40,this.seeFilteredMeals.length);
+      this.nb_of_recipes = Math.max(2,Math.min(40,this.seeFilteredMeals.length));
     },
 
     doMealsExist: function(meals){
@@ -246,12 +249,18 @@ button{
 .more_recipes{
   display: flex;
   justify-content: center;
-  margin: 10% auto;
+  margin: 5% auto;
 }
 
 .disallow{
   background-color: var(--disable-color);
   cursor:initial;
+}
+
+@media (max-width: 768px) {
+  .page > div{
+    width: 100%;
+  }
 }
 
 </style>
