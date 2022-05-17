@@ -68,9 +68,13 @@ export default {
       directionalLight.position.set(0, 1, 0);
       directionalLight.castShadow = true;
       this.scene.add(directionalLight);
-      const lightpoint = new THREE.PointLight(0xff0000, 1);
+      const lightpoint = new THREE.PointLight("#70ffc1", 1);
       lightpoint.position.set(0, 600, 1000);
       this.scene.add(lightpoint);
+
+      const lightpoint2 = new THREE.PointLight("#ff4714", 1);
+      lightpoint2.position.set(0, 100, -1000);
+      this.scene.add(lightpoint2)
 
       var light = new THREE.HemisphereLight(0xf6e86d, 0x404040, 0.5);
       light.position.set(0, 1, 0);
@@ -121,6 +125,8 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  top: 10%;
 }
 
 #noResults{

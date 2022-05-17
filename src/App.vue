@@ -177,7 +177,8 @@ body{
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   background-color: #ffffff;
-  margin-left: 0.5%;
+  display:flex;
+  flex-direction: column;
 }
 
 #app:first-child{

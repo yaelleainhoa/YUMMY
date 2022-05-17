@@ -68,7 +68,7 @@ export default {
   /* justify-content: space-between; */
   height: 60px;
   width: 100%;
-  box-shadow: 0px 20px 20px var(--shadow-color);
+  box-shadow:0px 20px 20px var(--shadow-color)
 }
 
 .logo{
