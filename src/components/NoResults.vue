@@ -1,6 +1,6 @@
 <template>
   <div id="none">
-    <div id="noResults"></div>
+    <div id="NoResults"></div>
     <h2 class="text"> No results...<br> Please try another research</h2>
   </div>
 </template>
@@ -12,7 +12,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export default {
-  name: "Scene",
+  name: "NoResults",
   data() {
     return {
       scene: undefined,
@@ -129,7 +129,7 @@ export default {
   top: 10%;
 }
 
-#noResults{
+#NoResults{
   width:500px;
   height: 500px;
 }

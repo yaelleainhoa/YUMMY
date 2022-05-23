@@ -4,7 +4,7 @@
     <div v-if="!loaded" class="loading">
     </div>
     <div v-else-if="!results">
-      <Scene containerId="noResults"/>
+      <NoResults containerId="NoResults"/>
     </div>
     <div v-else class="loaded">
       <div class="mainRecipe" v-if="idMeal != null">
@@ -42,7 +42,7 @@ import RecipePage from './components/RecipePage.vue'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import {getAllDataMeals} from "@/services/api/mealAPI.js"
-import Scene from '@/components/noResults.vue'
+import NoResults from '@/components/NoResults.vue'
 
 
 export default {
@@ -51,7 +51,7 @@ export default {
     RecipeCard,
     Header,
     RecipePage,
-    Scene,
+    NoResults,
     Footer
     },
     watch: {
@@ -98,9 +98,7 @@ export default {
 
     seeMainRecipe: function(id){
       this.idMeal = id;
-      console.log(this.$route.params.id)
       this.$route.params.id = this.idMeal;
-      console.log(this.$route.params.id)
     },
 
     seeRecipes: function(){
